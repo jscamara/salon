@@ -3,7 +3,15 @@
  */
 package br.com.beautysalon.model.domain;
 
-import br.com.beautysalon.util.BeautySalonUtil;
+import static br.com.beautysalon.util.BeautySalonUtil.isEmpty;
+
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validations;
 
 /**
  * Representa uma tarefa prestada pelo profissional ao cliente.
@@ -11,29 +19,34 @@ import br.com.beautysalon.util.BeautySalonUtil;
  * @author Jonathan
  *
  */
+@Entity
 public class Task {
+	@Id
+	@GeneratedValue
 	private long id;
 	private String name;
 	private String description;
-	private double time;
+	private int time;
+	@Enumerated
 	private Specialty specialty;
 	private boolean active;
 
 	/**
 	 * Valida se o serviço é válido
-	 * @return true - se o serviço for válido<br>
-	 * false - se o serviço for inválido
+	 * @param validator
 	 */
-	public boolean validate(){
-		if(BeautySalonUtil.isEmpty(this.name)){
-			return false;
-		}else if(this.time <= 0){
-			return false;
-		}else if(this.specialty == null){
-			return false;
-		}else{
-			return true;
-		}
+	public void validate(Validator validator){
+		validator.checking(new Validations() {
+			{
+				if(this.that(!isEmpty(getName()), "validation", "validation.required", i18n("task.name"))) {
+					this.that(getName().length() <= 200, "validation", "validation.maxLength", i18n("task.name"), 200);
+				}
+				if(this.that(!isEmpty(getDescription()), "validation", "validation.required", i18n("task.description"))) {
+					this.that(getDescription().length() <= 1000, "validation", "validation.maxLength", i18n("task.description"), 1000);
+				}
+				if(this.that(getTime() > 0, "validation", "validation.required", i18n("task.time")));
+			}
+		});
 	}
 	
 	public long getId() {
@@ -54,10 +67,10 @@ public class Task {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public double getTime() {
+	public int getTime() {
 		return time;
 	}
-	public void setTime(double time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 	public Specialty getSpecialty() {

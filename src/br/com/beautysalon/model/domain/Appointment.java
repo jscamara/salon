@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Representa um compromisso marcado na agenda de um profissional.
@@ -23,7 +23,7 @@ public class Appointment {
 	private long id;
 	@ManyToOne
 	private Client client;
-	@OneToMany
+	@OneToOne
 	private Task task;
 	private GregorianCalendar startAt;
 	

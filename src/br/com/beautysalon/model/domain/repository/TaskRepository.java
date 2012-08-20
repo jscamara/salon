@@ -15,9 +15,12 @@ import br.com.beautysalon.model.domain.Task;
 public interface TaskRepository {
 	/**
 	 * Adiciona uma tarefa 
-	 * @param task
+	 * @param task - Tarefa a ser adicionada
+	 * @return true - adicionada com sucesso <br>
+	 * false - não foi possível adicionar
+	 * 
 	 */
-	void add(Task task);
+	boolean add(Task task);
 	
 	/**
 	 * Desativa uma tarefa

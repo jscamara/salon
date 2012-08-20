@@ -5,9 +5,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="<c:url value='/css/fullcalendar.css' />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value='/css/fullcalendar.print.css'/>" media='print'/>
-		<script type='text/javascript' src="<c:url value='/js/jquery-1.7.1.min.js'/>"></script>
-		<script type='text/javascript' src="<c:url value='/js/jquery-ui-1.8.17.custom.min.js'/>"></script>
-		<script type='text/javascript' src="<c:url value='/js/fullcalendar.min.js'/>"></script>
 		<style type='text/css'>
 			body {
 				margin-top: 40px;
@@ -27,6 +24,9 @@
 		<div id="agenda">
 		</div>
 		
+		<script type='text/javascript' src="<c:url value='/js/jquery-1.7.2.min.js'/>"></script>
+		<script type='text/javascript' src="<c:url value='/js/jquery-ui-1.8.23.custom.min.js'/>"></script>
+		<script type='text/javascript' src="<c:url value='/js/fullcalendar.min.js'/>"></script>		
 		<script type='text/javascript'>
 			$(document).ready(function() {
 				var calendar = $('#agenda').fullCalendar({

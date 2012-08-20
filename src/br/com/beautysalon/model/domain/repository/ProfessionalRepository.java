@@ -17,13 +17,13 @@ public interface ProfessionalRepository {
 	 * Adiciona um novo profissional
 	 * @param professional
 	 */
-	void add(Professional professional);
+	boolean add(Professional professional);
 	
 	/**
 	 * Atualiza os dados de um profissional
 	 * @param professional
 	 */
-	void update(Professional professional);
+	boolean update(Professional professional);
 	
 	/**
 	 * Lista todos os profissionais

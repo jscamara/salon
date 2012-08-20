@@ -3,11 +3,14 @@
  */
 package br.com.beautysalon.model.domain;
 
+import static br.com.beautysalon.util.BeautySalonUtil.isEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import br.com.beautysalon.util.BeautySalonUtil;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validations;
 
 /**
  * Representa o endereço de uma Pessoa;
@@ -32,22 +35,30 @@ public class Adress {
 	 * @return true - se os dados do endereço foram válidos<br>
 	 * false - se os dados forem inválidos
 	 */
-	public boolean validate(){
-		if(BeautySalonUtil.isEmpty(this.street)){
-			return false;
-		}else if(this.number <= 0){
-			return false;
-		}else if(BeautySalonUtil.isEmpty(this.neighborhood)){
-			return false;
-		}else if(BeautySalonUtil.isEmpty(this.city)){
-			return false;
-		}else if(BeautySalonUtil.isEmpty(this.state)){
-			return false;
-		}else if(this.cep <= 0){
-			return false;
-		}else{
-			return true;
-		}
+	public void validate(Validator validator){
+		validator.checking(new Validations() {
+			{
+				if(this.that(!isEmpty(getStreet()), "validation", "validation.required", i18n("adress.street"))) {
+					this.that(getStreet().length() <= 200, "validation", "validation.maxLength", i18n("adress.street"), 200);
+				}
+
+				if(this.that(getNumber() > 0, "validation", "validation.required", i18n("adress.number")));
+				
+				if(this.that(!isEmpty(getNeighborhood()), "validation", "validation.required", i18n("adress.neighborhood"))){
+					this.that(getNeighborhood().length() <= 100, "validation", "validation.maxLength", i18n("adress.neighborhood"), 100);
+				}
+		
+				if(this.that(!isEmpty(getCity()), "validation", "validation.required", i18n("adress.city"))){
+					this.that(getCity().length() <= 50, "validation", "validation.maxLength", i18n("adress.city"), 50);
+				}
+				
+				if(this.that(!isEmpty(getState()), "validation", "validation.required", i18n("adress.state"))){
+					this.that(getCity().length() != 2, "validation", "validation.maxLength", i18n("adress.state"), 2);
+				}
+				
+				if(this.that(String.valueOf(getCep()).length() != 8, "validation", "validation.required", i18n("adress.cep")));
+			}
+		});
 	}
 	
 	public long getId() {

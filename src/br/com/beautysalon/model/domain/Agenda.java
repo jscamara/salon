@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,9 +19,13 @@ import javax.persistence.OneToMany;
 public class Agenda {
 	@Id
 	private int year;
+	
 	@OneToMany
-	List<Appointment> appointments;
+	private List<Appointment> appointments;
 
+	@ManyToOne
+	private Professional professional;
+	
 	public int getYear() {
 		return year;
 	}
@@ -32,5 +37,11 @@ public class Agenda {
 	}
 	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+	public Professional getProfessional() {
+		return professional;
+	}
+	public void setProfessional(Professional professional) {
+		this.professional = professional;
 	}
 }

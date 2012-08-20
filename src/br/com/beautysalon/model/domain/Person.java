@@ -3,6 +3,8 @@
  */
 package br.com.beautysalon.model.domain;
 
+import static br.com.beautysalon.util.BeautySalonUtil.isEmpty;
+
 import java.util.List;
 
 import javax.persistence.DiscriminatorColumn;
@@ -16,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.beautysalon.util.BeautySalonUtil;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validations;
 
 /**
  * Representa uma pessoa
@@ -44,23 +48,27 @@ public class Person {
 	 * @return true - se os dados da pessoa forem válidos <br>
 	 * false - se os dados da pessoa forem inválidos
 	 */
-	public boolean validate(){
-		if(BeautySalonUtil.isEmpty(this.name)){
-			return false;
-		}else if(!BeautySalonUtil.isValidCpf(this.cpf)){
-			return false;
-		}else if(BeautySalonUtil.isEmpty(this.photo)){
-			return false;
-		}else if(!this.adress.validate()){
-			return false;
-		}else if(this.phones != null){
-			for(Phone phone : phones){
-				if(!phone.validate()){
-					return false;
+	public void validate(final Validator validator){
+		validator.checking(new Validations() {
+			{
+				if(this.that(!isEmpty(getName()), "validation", "validation.required", i18n("person.name"))) {
+					this.that(getName().length() <= 200, "validation", "validation.maxLength", i18n("person.name"), 200);
+				}
+				if(this.that(BeautySalonUtil.isValidCpf(getCpf()), "validation", "validation.required", i18n("person.cpf")));
+				
+				if(this.that(!isEmpty(getRg()), "validation", "validation.maxLength", i18n("person.rg")));
+
+				if(this.that(!isEmpty(getPhoto()), "validation", "validation.required", i18n("person.photo")));
+				
+				if(this.that(!isEmpty(getPhoto()), "validation", "validation.required", i18n("person.photo")));
+				
+				getAdress().validate(validator);
+				
+				for(Phone phone : getPhones()){
+					phone.validate(validator);
 				}
 			}
-		}
-		return true;
+		});
 	}
 	
 	public String getName() {

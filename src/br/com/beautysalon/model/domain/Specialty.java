@@ -1,7 +1,7 @@
 package br.com.beautysalon.model.domain;
 
 public enum Specialty {
-	HAIR_STYLIST("Cabelereiro"), MANICURE_PEDICURE("Manicure");
+	HAIR_STYLIST("Cabelereira"), MANICURE_PEDICURE("Manicure");
 
 	private String name;
 

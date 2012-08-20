@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import br.com.beautysalon.util.BeautySalonUtil;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Validations;
 
 
 /**
@@ -32,17 +34,20 @@ public class Phone {
 	 * @return true - se o ddd e o telefone forem válidos <br>
 	 * false - se o ddd e o telefone forem inválidos
 	 */
-	public boolean validate(){
-		if(this.isValidDDD()){
-			switch (this.type) {
-				case CELL:
-					return isValidCellNumber();
-				default:
-					return isValidNumber();
+	public void validate(Validator validator){
+		validator.checking(new Validations() {
+			{
+				if(this.that(!isValidDDD(), "validation", "validation.invalid", i18n("phone.ddd")));
+				
+				switch (getType()) {
+					case CELL:
+						if(this.that(!isValidCellNumber(), "validation", "validation.invalid", i18n("phone.number")));
+						break;
+					default:
+						if(this.that(!isValidNumber(), "validation", "validation.invalid", i18n("phone.number")));
+				}
 			}
-		}else{
-			return false;
-		}
+		});
 	}
 	
 	private boolean isValidDDD(){
@@ -56,13 +61,13 @@ public class Phone {
 		Pattern pattern;
 		if(this.ddd == 11){
 			if(BeautySalonUtil.checkMaxLength(String.valueOf(this.number), 9)){
-				pattern = Pattern.compile("9[6-9][0-9]{7}");
+				pattern = Pattern.compile("9[5-9][0-9]{7}");
 			}else{
 				return false;
 			}
 		}else{
 			if(BeautySalonUtil.checkMaxLength(String.valueOf(this.number), 8)){
-				pattern = Pattern.compile("[6-9][0-9]{7}");
+				pattern = Pattern.compile("[5-9][0-9]{7}");
 			}else{
 				return false;
 			}

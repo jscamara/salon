@@ -28,7 +28,7 @@ public class ProfessionalDao implements ProfessionalRepository{
 	 * @see br.com.beautysalon.model.domain.repository.ProfessionalRepository#add(br.com.beautysalon.model.domain.Professional)
 	 */
 	@Override
-	public void add(Professional professional) {
+	public boolean add(Professional professional) {
 		Transaction transaction = null;
 		try {
 			this.session = HibernateFactory.getSession().openSession();
@@ -36,8 +36,10 @@ public class ProfessionalDao implements ProfessionalRepository{
 			transaction.begin();
 			this.session.save(professional);
 			transaction.commit();
+			return true;
 		} catch (HibernateException e) {
 			transaction.rollback();
+			return false;
 		} finally{
 			if(this.session != null){
 				this.session.close();
@@ -49,7 +51,7 @@ public class ProfessionalDao implements ProfessionalRepository{
 	 * @see br.com.beautysalon.model.domain.repository.ProfessionalRepository#update(br.com.beautysalon.model.domain.Professional)
 	 */
 	@Override
-	public void update(Professional professional) {
+	public boolean update(Professional professional) {
 		Transaction transaction = null;
 		try {
 			this.session = HibernateFactory.getSession().openSession();
@@ -57,8 +59,10 @@ public class ProfessionalDao implements ProfessionalRepository{
 			transaction.begin();
 			this.session.update(professional);
 			transaction.commit();
+			return true;
 		} catch (HibernateException e) {
 			transaction.rollback();
+			return false;
 		} finally{
 			if(this.session != null){
 				this.session.close();

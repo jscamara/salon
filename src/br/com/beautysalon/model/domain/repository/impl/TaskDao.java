@@ -13,12 +13,14 @@ import org.hibernate.criterion.Restrictions;
 import br.com.beautysalon.infra.HibernateFactory;
 import br.com.beautysalon.model.domain.Task;
 import br.com.beautysalon.model.domain.repository.TaskRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
 /**
  * Implementação Hibernate do repositório de tarefas.
  * @author Jonathan
  *
  */
+@Component
 public class TaskDao implements TaskRepository{
 	private Session session;
 
@@ -26,16 +28,18 @@ public class TaskDao implements TaskRepository{
 	 * @see br.com.beautysalon.model.domain.repository.TaskRepository#add(br.com.beautysalon.model.domain.Task)
 	 */
 	@Override
-	public void add(Task task) {
+	public boolean add(Task task) {
 		Transaction transaction = null;
 		try {
 			this.session = HibernateFactory.getSession().openSession();
 			transaction = this.session.beginTransaction();
-			transaction.begin();
 			this.session.save(task);
 			transaction.commit();
+			return true;
 		} catch (HibernateException e) {
+			e.printStackTrace();
 			transaction.rollback();
+			return false;
 		} finally{
 			if(this.session != null){
 				this.session.close();
