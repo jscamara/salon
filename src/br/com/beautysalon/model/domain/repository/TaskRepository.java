@@ -16,11 +16,8 @@ public interface TaskRepository {
 	/**
 	 * Adiciona uma tarefa 
 	 * @param task - Tarefa a ser adicionada
-	 * @return true - adicionada com sucesso <br>
-	 * false - não foi possível adicionar
-	 * 
 	 */
-	boolean add(Task task);
+	void add(Task task);
 	
 	/**
 	 * Desativa uma tarefa

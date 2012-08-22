@@ -15,5 +15,4 @@ public class CreateDB {
 		SchemaExport export = new SchemaExport(conf);
 		export.create(true, true);
 	}
-
 }

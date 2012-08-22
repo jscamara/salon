@@ -48,11 +48,13 @@ public class ProfessionalController {
 		this.validator.onErrorForwardTo(ProfessionalController.class).form();
 		
 		if(this.repository.add(professional)){
+			this.result.include("msg", this.localization.getMessage("add.success"));
 			this.result.forwardTo(this).list();
 		}else{
 			this.result.include(professional);
 			result.include("phoneTypes", PhoneType.values());
 			result.include("specialties", Specialty.values());
+			this.result.include("msg", this.localization.getMessage("add.error"));
 			this.result.forwardTo(this).form();
 		}
 	}

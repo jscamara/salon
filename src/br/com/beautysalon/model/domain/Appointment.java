@@ -26,6 +26,8 @@ public class Appointment {
 	@OneToOne
 	private Task task;
 	private GregorianCalendar startAt;
+	@ManyToOne
+	private Agenda agenda;
 	
 	public Event asEvent(){
 		Event event = new Event();
@@ -64,5 +66,13 @@ public class Appointment {
 	}
 	public void setStartAt(GregorianCalendar startAt) {
 		this.startAt = startAt;
+	}
+
+	public Agenda getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
 	}
 }

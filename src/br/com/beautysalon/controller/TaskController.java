@@ -43,14 +43,9 @@ public class TaskController {
 		task.validate(this.validator);
 		this.validator.onErrorForwardTo(TaskController.class).form();
 		
-		if(this.repository.add(task)){
-			this.result.include("msg", this.localization.getMessage("add.success"));
-			this.result.forwardTo(TaskController.class).list();
-		}else{
-			this.result.include(task);
-			this.result.include("msg", this.localization.getMessage("add.error"));
-			this.result.forwardTo(TaskController.class).form();
-		}
+		this.repository.add(task);
+		this.result.include("msg", this.localization.getMessage("add.success"));
+		this.result.forwardTo(TaskController.class).list();
 	}
 	
 	@Path("/task")

@@ -5,6 +5,7 @@ package br.com.beautysalon.model.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ public class Agenda {
 	@Id
 	private int year;
 	
-	@OneToMany
+	@OneToMany(mappedBy="agenda", cascade=CascadeType.ALL)
 	private List<Appointment> appointments;
 
 	@ManyToOne

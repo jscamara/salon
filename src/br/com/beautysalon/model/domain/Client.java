@@ -14,5 +14,5 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("C")
 public class Client extends Person {
-	
+
 }

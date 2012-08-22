@@ -17,13 +17,13 @@ public interface ClientRepository {
 	 * Adiciona um cliente
 	 * @param client - cliente que será adicionado
 	 */
-	void add(Client client);
+	boolean add(Client client);
 	
 	/**
 	 * Atualiza os dados de um cliente
 	 * @param client - cliente que terá seus dados atualizados
 	 */
-	void update(Client client);
+	boolean update(Client client);
 
 	/**
 	 * Lista todos os clientes do salão

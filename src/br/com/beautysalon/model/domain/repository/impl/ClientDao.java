@@ -12,12 +12,14 @@ import org.hibernate.Transaction;
 import br.com.beautysalon.infra.HibernateFactory;
 import br.com.beautysalon.model.domain.Client;
 import br.com.beautysalon.model.domain.repository.ClientRepository;
+import br.com.caelum.vraptor.ioc.Component;
 
 /**
  * Implementação Hibernate de um repositório de clientes.
  * @author Jonathan
  *
  */
+@Component
 public class ClientDao implements ClientRepository {
 
 	private Session session;
@@ -26,7 +28,7 @@ public class ClientDao implements ClientRepository {
 	 * @see br.com.beautysalon.model.domain.repository.ClientRepository#add(br.com.beautysalon.model.domain.Client)
 	 */
 	@Override
-	public void add(Client client) {
+	public boolean add(Client client) {
 		Transaction transaction = null;
 		try {
 			this.session = HibernateFactory.getSession().openSession();
@@ -34,8 +36,10 @@ public class ClientDao implements ClientRepository {
 			transaction.begin();
 			this.session.save(client);
 			transaction.commit();
+			return true;
 		} catch (HibernateException e) {
 			transaction.rollback();
+			return false;
 		} finally{
 			if(this.session != null){
 				this.session.close();
@@ -47,7 +51,7 @@ public class ClientDao implements ClientRepository {
 	 * @see br.com.beautysalon.model.domain.repository.ClientRepository#update(br.com.beautysalon.model.domain.Client)
 	 */
 	@Override
-	public void update(Client client) {
+	public boolean update(Client client) {
 		Transaction transaction = null;
 		try {
 			this.session = HibernateFactory.getSession().openSession();
@@ -55,8 +59,10 @@ public class ClientDao implements ClientRepository {
 			transaction.begin();
 			this.session.update(client);
 			transaction.commit();
+			return true;
 		} catch (HibernateException e) {
 			transaction.rollback();
+			return false;
 		} finally{
 			if(this.session != null){
 				this.session.close();

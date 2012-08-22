@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -25,12 +24,11 @@ public class Salon {
 	private long id;
 	private String name;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@MapsId
+	@OneToOne
 	private Adress adress;
-	
+
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Phone> phones;
+	List<Phone> phones;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Professional> professionals;
@@ -56,12 +54,6 @@ public class Salon {
 	public void setAdress(Adress adress) {
 		this.adress = adress;
 	}
-	public List<Phone> getPhones() {
-		return phones;
-	}
-	public void setPhones(List<Phone> phones) {
-		this.phones = phones;
-	}
 	public List<Professional> getProfessionals() {
 		return professionals;
 	}
@@ -73,5 +65,11 @@ public class Salon {
 	}
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
+	}
+	public List<Phone> getPhones() {
+		return phones;
+	}
+	public void setPhones(List<Phone> phones) {
+		this.phones = phones;
 	}
 }

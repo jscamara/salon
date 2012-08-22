@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,7 +28,7 @@ import br.com.caelum.vraptor.validator.Validations;
  *
  */
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorValue("P")
 @DiscriminatorColumn(name="subclass", discriminatorType=DiscriminatorType.CHAR)
 public class Person {
@@ -42,6 +43,8 @@ public class Person {
 	private List<Phone> phones;
 	@OneToOne
 	private User user;
+	@ManyToOne
+	private Salon salon;
 
 	/**
 	 * Valida se os dados de uma pessoa são válidos
@@ -112,5 +115,13 @@ public class Person {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Salon getSalon() {
+		return salon;
+	}
+
+	public void setSalon(Salon salon) {
+		this.salon = salon;
 	}
 }
