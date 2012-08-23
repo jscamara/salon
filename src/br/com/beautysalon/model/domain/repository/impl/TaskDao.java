@@ -5,7 +5,6 @@ package br.com.beautysalon.model.domain.repository.impl;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -20,7 +19,7 @@ import br.com.caelum.vraptor.ioc.Component;
  */
 @Component
 public class TaskDao implements TaskRepository{
-	private final Session session;
+	private Session session;
 
 	public TaskDao(Session session){
 		this.session = session;
@@ -49,12 +48,7 @@ public class TaskDao implements TaskRepository{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Task> list() {
-		try {
-			return this.session.createCriteria(Task.class).list();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return this.session.createCriteria(Task.class).list();
 	}
 
 	/* (non-Javadoc)
@@ -63,12 +57,7 @@ public class TaskDao implements TaskRepository{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Task> listActives() {
-		try {
-			return this.session.createCriteria(Task.class).add(Restrictions.eq("active", true)).list();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return this.session.createCriteria(Task.class).add(Restrictions.eq("active", true)).list();
 	}
 
 	/* (non-Javadoc)
@@ -76,11 +65,6 @@ public class TaskDao implements TaskRepository{
 	 */
 	@Override
 	public Task getById(long id) {
-		try {
-			return (Task) this.session.load(Task.class, id);
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return (Task) this.session.load(Task.class, id);
 	}
 }

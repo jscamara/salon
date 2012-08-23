@@ -21,7 +21,7 @@ public class Agenda {
 	@Id
 	private int year;
 	
-	@OneToMany(mappedBy="agenda", cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Appointment> appointments;
 
 	@ManyToOne

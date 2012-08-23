@@ -5,11 +5,8 @@ package br.com.beautysalon.model.domain.repository.impl;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import br.com.beautysalon.infra.HibernateFactory;
 import br.com.beautysalon.model.domain.Professional;
 import br.com.beautysalon.model.domain.repository.ProfessionalRepository;
 import br.com.caelum.vraptor.ioc.Component;
@@ -21,53 +18,26 @@ import br.com.caelum.vraptor.ioc.Component;
  */
 @Component
 public class ProfessionalDao implements ProfessionalRepository{
-	
 	private Session session;
+	
+	public ProfessionalDao(Session session){
+		this.session = session;
+	}
 	
 	/* (non-Javadoc)
 	 * @see br.com.beautysalon.model.domain.repository.ProfessionalRepository#add(br.com.beautysalon.model.domain.Professional)
 	 */
 	@Override
-	public boolean add(Professional professional) {
-		Transaction transaction = null;
-		try {
-			this.session = HibernateFactory.getSession().openSession();
-			transaction = this.session.beginTransaction();
-			transaction.begin();
-			this.session.save(professional);
-			transaction.commit();
-			return true;
-		} catch (HibernateException e) {
-			transaction.rollback();
-			return false;
-		} finally{
-			if(this.session != null){
-				this.session.close();
-			}
-		}
+	public void add(Professional professional) {
+		this.session.save(professional);
 	}
 
 	/* (non-Javadoc)
 	 * @see br.com.beautysalon.model.domain.repository.ProfessionalRepository#update(br.com.beautysalon.model.domain.Professional)
 	 */
 	@Override
-	public boolean update(Professional professional) {
-		Transaction transaction = null;
-		try {
-			this.session = HibernateFactory.getSession().openSession();
-			transaction = this.session.beginTransaction();
-			transaction.begin();
-			this.session.update(professional);
-			transaction.commit();
-			return true;
-		} catch (HibernateException e) {
-			transaction.rollback();
-			return false;
-		} finally{
-			if(this.session != null){
-				this.session.close();
-			}
-		}
+	public void update(Professional professional) {
+		this.session.update(professional);
 	}
 
 	/* (non-Javadoc)
@@ -76,17 +46,7 @@ public class ProfessionalDao implements ProfessionalRepository{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Professional> list() {
-		try {
-			this.session = HibernateFactory.getSession().openSession();
-			return this.session.createCriteria(Professional.class).list();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		} finally{
-			if(this.session != null){
-				this.session.close();
-			}
-		}
-		return null;
+		return this.session.createCriteria(Professional.class).list();
 	}
 
 	/* (non-Javadoc)
@@ -94,16 +54,6 @@ public class ProfessionalDao implements ProfessionalRepository{
 	 */
 	@Override
 	public Professional getById(long id) {
-		try {
-			this.session = HibernateFactory.getSession().openSession();
-			return (Professional) this.session.load(Professional.class, id);
-		} catch (HibernateException e) {
-			e.printStackTrace();
-		} finally{
-			if(this.session != null){
-				this.session.close();
-			}
-		}
-		return null;
+		return (Professional) this.session.load(Professional.class, id);
 	}
 }

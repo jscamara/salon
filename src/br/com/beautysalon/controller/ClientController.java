@@ -45,14 +45,9 @@ public class ClientController {
 		client.validate(this.validator);
 		this.validator.onErrorForwardTo(ClientController.class).form();
 		
-		if(this.repository.add(client)){
-			this.result.include("msg", this.localization.getMessage("add.success"));
-			this.result.forwardTo(ClientController.class).list();
-		}else{
-			this.result.include("phoneTypes", PhoneType.values());
-			this.result.include("msg", this.localization.getMessage("add.error"));
-			this.result.forwardTo(ClientController.class).form();
-		}
+		this.repository.add(client);
+		this.result.include("msg", this.localization.getMessage("add.success"));
+		this.result.forwardTo(ClientController.class).list();
 	}
 	
 	@Path("/client")

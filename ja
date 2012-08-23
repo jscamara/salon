@@ -1,0 +1,30 @@
+[33mcommit 40cb9484c7da0c260aaba6f11fbe7768de21bd92[m
+Author: Jonathan Camara <camara.js@gmail.com>
+Date:   Wed Aug 22 11:05:45 2012 -0300
+
+    Alteracoes na criacao de uma sessao hibernate. Passou a ser controlado pelo ioc do vraptor. Ajustando modelo de dados e relacionamento entre as entidades.
+
+[33mcommit 732baa22daba699846eca61c8c81b6533c3d0880[m
+Author: Jonathan Camara <camara.js@gmail.com>
+Date:   Mon Aug 20 16:18:21 2012 -0300
+
+    Finalizacao da funcionalidade de adicao de uma taks. Iniciado add de um profissional
+
+[33mcommit 60bdfdbf4f3ab9b6acb4c8b4a2807a15918ed6d1[m
+Merge: b546270 84719a7
+Author: Jonathan Camara <camara.js@gmail.com>
+Date:   Thu Aug 16 15:37:13 2012 -0300
+
+    Merge https://github.com/jscamara/salon
+
+[33mcommit b546270f7b195c17ca43bb06300c3e3bebd802b8[m
+Author: Jonathan Camara <camara.js@gmail.com>
+Date:   Thu Aug 16 15:33:37 2012 -0300
+
+    Commit inicial no repositorio
+
+[33mcommit 84719a714be56c0cdd5a203ad9d60ce834c10565[m
+Author: Jonathan Camara <camara.js@gmail.com>
+Date:   Thu Aug 16 11:25:37 2012 -0700
+
+    Initial commit
