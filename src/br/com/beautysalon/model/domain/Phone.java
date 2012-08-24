@@ -37,14 +37,14 @@ public class Phone {
 	public void validate(Validator validator){
 		validator.checking(new Validations() {
 			{
-				if(this.that(!isValidDDD(), "validation", "validation.invalid", i18n("phone.ddd")));
+				if(this.that(isValidDDD(), "validation", "validation.invalid", i18n("phone.ddd")));
 				
 				switch (getType()) {
 					case CELL:
-						if(this.that(!isValidCellNumber(), "validation", "validation.invalid", i18n("phone.number")));
+						if(this.that(isValidCellNumber(), "validation", "validation.invalid", i18n("phone.number")));
 						break;
 					default:
-						if(this.that(!isValidNumber(), "validation", "validation.invalid", i18n("phone.number")));
+						if(this.that(isValidNumber(), "validation", "validation.invalid", i18n("phone.number")));
 				}
 			}
 		});

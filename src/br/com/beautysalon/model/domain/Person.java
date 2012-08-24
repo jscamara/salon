@@ -57,12 +57,10 @@ public class Person {
 				if(this.that(!isEmpty(getName()), "validation", "validation.required", i18n("person.name"))) {
 					this.that(getName().length() <= 200, "validation", "validation.maxLength", i18n("person.name"), 200);
 				}
-				if(this.that(BeautySalonUtil.isValidCpf(getCpf()), "validation", "validation.required", i18n("person.cpf")));
+				if(this.that(BeautySalonUtil.isValidCpf(getCpf()), "validation", "validation.invalid", i18n("person.cpf")));
 				
 				if(this.that(!isEmpty(getRg()), "validation", "validation.maxLength", i18n("person.rg")));
 
-				if(this.that(!isEmpty(getPhoto()), "validation", "validation.required", i18n("person.photo")));
-				
 				if(this.that(!isEmpty(getPhoto()), "validation", "validation.required", i18n("person.photo")));
 				
 				getAdress().validate(validator);

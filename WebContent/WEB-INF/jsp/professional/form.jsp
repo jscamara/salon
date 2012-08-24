@@ -16,7 +16,7 @@
 				<fmt:message key="professional.specialty"/>
 				<select name="professional.specialty">
 					<c:forEach var="specialty" items="${specialties }">
-						<option value="${specialty }">${specialty.name }</option>
+						<option value="${specialty }" ${professional.specialty == specialty ? 'selected' : '' }>${specialty.name }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -33,19 +33,19 @@
 			<br>
 			<div id="contactInformation">
 				<div id="phone">
-					<fmt:message key="phone.ddd"/><input type="text" name="professional.phones[0].ddd">
-					<fmt:message key="phone.number"/><input type="text" name="professional.phones[0].number">
+					<fmt:message key="phone.ddd"/><input type="number" maxlength="2" size="2" min="2" max="2" name="professional.phones[0].ddd" value="${professional.phones[0].ddd }">
+					<fmt:message key="phone.number"/><input type="number" maxlength="9" name="professional.phones[0].number" value="${professional.phones[0].number }">
 					<select name="professional.phones[0].type">
 						<c:forEach var="phoneType" items="${phoneTypes }">
-							<option value="${phoneType }">${phoneType.name }</option>
+							<option value="${phoneType }" ${professional.phones[0].type == phoneType ? 'selected' : '' }>${phoneType.name }</option>
 						</c:forEach>
 					</select>
 					<br>
-					<fmt:message key="phone.ddd"/><input type="text" maxlength="2" name="professional.phones[1].ddd">
-					<fmt:message key="phone.number"/><input type="text" maxlength="9" name="professional.phones[1].number">
+					<fmt:message key="phone.ddd"/><input type="number" maxlength="2" size="2" min="2" max="2" name="professional.phones[1].ddd" value="${professional.phones[1].ddd }">
+					<fmt:message key="phone.number"/><input type="number" maxlength="9" name="professional.phones[1].number" value="${professional.phones[1].number }">
 					<select name="professional.phones[1].type">
 						<c:forEach var="phoneType" items="${phoneTypes }">
-							<option value="${phoneType }">${phoneType.name }</option>
+							<option value="${phoneType }" ${professional.phones[1].type == phoneType ? 'selected' : '' }>${phoneType.name }</option>
 						</c:forEach>
 					</select>
 				</div>

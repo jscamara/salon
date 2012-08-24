@@ -56,7 +56,7 @@ public class Adress {
 					this.that(getCity().length() != 2, "validation", "validation.maxLength", i18n("adress.state"), 2);
 				}
 				
-				if(this.that(String.valueOf(getCep()).length() != 8, "validation", "validation.required", i18n("adress.cep")));
+				if(this.that(String.valueOf(getCep()).length() == 8, "validation", "validation.required", i18n("adress.cep")));
 			}
 		});
 	}

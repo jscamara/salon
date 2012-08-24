@@ -3,18 +3,21 @@
  */
 package br.com.beautysalon.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ResourceBundle;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.beautysalon.util.BeautySalonUtil;
+import br.com.caelum.vraptor.core.SafeResourceBundle;
 
 /**
  * @author Jonathan
  *
  */
 public class BeautySalonUtilTest {
+	public static ResourceBundle	bundle;
 
 	/**
 	 * @throws java.lang.Exception
@@ -23,6 +26,21 @@ public class BeautySalonUtilTest {
 	public void setUp() throws Exception {
 	}
 
+	
+	static {
+		BeautySalonUtilTest.bundle = new SafeResourceBundle(ResourceBundle.getBundle("messages"), true);
+	}
+	
+	/**
+	 * Return the i18n word from the <b>messages.properties</b> file
+	 * 
+	 * @param key
+	 * @return the i18n word for the specified key
+	 */
+	public static String i18n(String key) {
+		return BeautySalonUtilTest.bundle.getString(key);
+	}
+	
 	/**
 	 * Valida se a string está nula ou vazia
 	 * Test method for {@link br.com.beautysalon.util.BeautySalonUtil#isEmpty(java.lang.String)}.
@@ -35,6 +53,14 @@ public class BeautySalonUtilTest {
 		assertTrue(BeautySalonUtil.isEmpty(value));
 		value = "   ";
 		assertTrue(BeautySalonUtil.isEmpty(value));
+	}
+	
+	public static String bigWord(int size){
+		StringBuilder word = new StringBuilder();
+		while(size-- != 0){
+			word.append("a");
+		}
+		return word.toString();
 	}
 	
 	/**

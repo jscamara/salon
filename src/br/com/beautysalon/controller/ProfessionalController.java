@@ -44,6 +44,8 @@ public class ProfessionalController {
 	@Path("/professional")
 	@Post
 	public void add(Professional professional, UploadedFile photo){
+		
+		
 		professional.validate(this.validator);
 		this.validator.onErrorForwardTo(ProfessionalController.class).form();
 		
